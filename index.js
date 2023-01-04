@@ -1,3 +1,5 @@
+import { DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER } from "./config.js";
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -6,11 +8,12 @@ const mysql = require("mysql");
 
 const PORT = process.env.PORT || 5000;
 
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "sisrek_ban",
+const db = mysql.createPool({
+  host: DB_HOST,
+  user: DB_USER,
+  password: DB_PASSWORD,
+  port: DB_PORT,
+  database: DB_NAME,
 });
 
 app.use(cors());
