@@ -4,7 +4,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
+const multer = require("multer");
 const mysql = require("mysql2");
+const path = require("path");
 
 const PORT = process.env.PORT || 5000;
 
@@ -28,55 +30,17 @@ app.get("/", (req, res) => {
 
 //Add New Ban
 
-app.post("/api/banbaru", (req, res) => {
-  const merk = req.body.merk;
-  const size = req.body.size;
-  const ring = req.body.ring;
-  const harga = req.body.harga;
-  const peruntukan = req.body.peruntukan;
-
-  const sqlInsert =
-    "INSERT INTO spesifikasi (merk, size, ring, harga) VALUE (?, ?, ?, ?);";
-  db.query(sqlInsert, [merk, size, ring, harga, peruntukan], (err, result) => {
-    if (err) {
-      console.log(err);
-    }
-    console.log(result);
-    res.sendStatus(200);
-  });
+var storage = multer.diskStorage({
+  destination: (req, file, callBack) => {
+    callBack(null, "./public/uploads/");
+  },
+  filename: (req, file, callBack) => {
+    callBack(null, file.fieldname + "-" + Date.now() + path.extname);
+  },
 });
 
-//Post Jawaban
-app.post("/api/jawab", (req, res) => {
-  const id = "a";
-  const diameter = req.body.diameter;
-  const harga = req.body.harga;
-  const kategori = req.body.kategori;
-
-  const sqlInsert =
-    "INSERT INTO jawaban (id,diameter,harga,kategori) VALUES (?,?,?);";
-  db.query(sqlInsert, [id, diameter, harga, kategori], (err, result) => {
-    if (err) {
-      console.log(err);
-    }
-    console.log(result);
-    res.sendStatus(200);
-  });
-});
-
-//Delete Jawaban
-
-app.delete("/api/deletejwb", (res) => {
-  const sqlDelete = "DELETE FROM jawab WHERE id = 'a'";
-
-  db.query(sqlDelete, (err, result) => {
-    if (err) {
-      res.json({
-        message: err.message,
-      });
-      console.log(err);
-    }
-  });
+var upload = multer({
+  storage: storage,
 });
 
 //View All Ban
