@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 const db = mysql.createPool({
   host: process.env.DB_HOST || "localhost",
   user: process.env.DB_USER || "root",
-  password: process.env.DB_PASSWORD || "password",
+  password: process.env.DB_PASSWORD || "",
   port: process.env.DB_PORT || 3306,
   database: process.env.DB_NAME || "sisrek_ban",
 });
@@ -145,7 +145,7 @@ app.delete("/api/deleteban/:id", (req, res) => {
 });
 
 app.get("/api/user", (req, res) => {
-  const getUser = "SELECT * FROM user";
+  const getUser = "SELECT * FROM user_data";
   db.query(getUser, (err, result) => {
     res.send(result);
     if (err) {
