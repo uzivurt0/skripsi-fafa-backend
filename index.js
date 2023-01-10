@@ -18,7 +18,7 @@ const db = mysql.createPool({
   database: process.env.DB_NAME || "sisrek_ban",
 });
 
-app.use(cors());
+app.use(cors({ origin: "http://localhost:3000" }));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
