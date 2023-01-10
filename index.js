@@ -18,7 +18,11 @@ const db = mysql.createPool({
   database: process.env.DB_NAME || "sisrek_ban",
 });
 
+<<<<<<< HEAD
 app.use(cors({ origin: "https://ban-tuin.netlify.app" }));
+=======
+app.use(cors());
+>>>>>>> 1d9ba08ef75854c6d6ffcb54761a01b8c8254955
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
