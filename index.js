@@ -46,7 +46,7 @@ var upload = multer({
 
 //View All Ban
 
-app.post("/api/addban", upload.single("image"), (req, res) => {
+app.post("/api/addban", upload.single("photo"), (req, res) => {
   const id = req.body.id;
   const merk = req.body.merk_ban;
   const ukuran = req.body.ukurans;
