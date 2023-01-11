@@ -56,9 +56,9 @@ app.post("/api/addban", upload.single("image"), (req, res) => {
   const compound = req.body.compounds;
   const imgSrc =
     req.protocol + "://" + req.get("host") + "/uploads/" + req.file.filename;
-  req.file.filename;
 
   console.log(req.body);
+  console.log(imgSrc);
 
   const sqlInsert =
     "INSERT INTO spesifikasi (id, merk_ban, ukuran, profil, ring, harga, compound, image) VALUES (?,?,?,?,?,?,?,?) ";
