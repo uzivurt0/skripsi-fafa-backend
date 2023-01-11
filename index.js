@@ -19,9 +19,9 @@ const db = mysql.createPool({
 });
 
 app.use(cors({ origin: "https://ban-tuin.netlify.app" }));
-
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
   res.json({
@@ -46,7 +46,7 @@ var upload = multer({
 
 //View All Ban
 
-app.post("/api/addban", (req, res) => {
+app.post("/api/addban", upload.single("image"), (req, res) => {
   const id = req.body.id;
   const merk = req.body.merk_ban;
   const ukuran = req.body.ukurans;
@@ -54,15 +54,18 @@ app.post("/api/addban", (req, res) => {
   const diameter = req.body.rings;
   const profil = req.body.profils;
   const compound = req.body.compounds;
+  const imgSrc =
+    req.protocol + "://" + req.get("host") + "/uploads/" + req.file.filename;
+  req.file.filename;
 
   console.log(req.body);
 
   const sqlInsert =
-    "INSERT INTO spesifikasi (id, merk_ban, ukuran, profil, ring, harga, compound) VALUES (?,?,?,?,?,?,?) ";
+    "INSERT INTO spesifikasi (id, merk_ban, ukuran, profil, ring, harga, compound, image) VALUES (?,?,?,?,?,?,?,?) ";
 
   db.query(
     sqlInsert,
-    [id, merk, ukuran, profil, diameter, harga, compound],
+    [id, merk, ukuran, profil, diameter, harga, compound, imgSrc],
     (err, result) => {
       if (err) console.log(err);
     }
