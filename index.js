@@ -54,8 +54,7 @@ app.post("/api/addban", upload.single("photo"), (req, res) => {
   const diameter = req.body.rings;
   const profil = req.body.profils;
   const compound = req.body.compounds;
-  const imgSrc =
-    req.protocol + "://" + req.get("host") + "/uploads/" + req.file.filename;
+  const imgSrc = " ";
 
   console.log(req.body);
   console.log(imgSrc);
