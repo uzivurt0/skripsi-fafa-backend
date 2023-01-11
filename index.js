@@ -104,6 +104,7 @@ app.put("/api/editban", (req, res) => {
 
 app.delete("/api/deleteban/:id", (req, res) => {
   const id = req.params.id;
+  console.log(id);
   const sqlDelete = "DELETE FROM spesifikasi WHERE id = ?";
 
   db.query(sqlDelete, id, (err, result) => {
