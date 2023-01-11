@@ -107,7 +107,7 @@ app.delete("/api/deleteban/:id", (req, res) => {
   console.log(id);
   const sqlDelete = "DELETE FROM spesifikasi WHERE id = ?";
 
-  db.query(sqlDelete, id, (err, result) => {
+  db.query(sqlDelete, [id], (err, result) => {
     if (err) console.log(err);
   });
 });
